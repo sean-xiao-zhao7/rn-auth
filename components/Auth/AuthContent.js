@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+// comps
 import FlatButton from "../ui/FlatButton";
 import AuthForm from "./AuthForm";
+
+// styles
 import { Colors } from "../../constants/styles";
 
 function AuthContent({ isLogin, onAuthenticate }) {
@@ -17,11 +20,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     });
 
     function switchAuthModeHandler() {
-        if (isLogin) {
-            navigation.navigate("Signup");
-        } else {
-            navigation.navigate("Login");
-        }
+        navigation.navigate("AuthScreen", { isLogin: !isLogin });
     }
 
     function submitHandler(credentials) {
@@ -52,7 +51,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
             });
             return;
         }
-        onAuthenticate({ email, password });
+        onAuthenticate(email, password, isLogin);
     }
 
     return (
